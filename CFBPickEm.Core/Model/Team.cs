@@ -13,5 +13,6 @@ namespace CFBPickEm.Core.Model
         public string TeamName { get; set; }
         public bool TeamDeleted { get; set; }
         public string TeamNickName { get; set; }
+        public int TeamLogo { get; set; }
     }
 }

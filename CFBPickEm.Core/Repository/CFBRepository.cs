@@ -19,7 +19,8 @@ namespace CFBPickEm.Core.Repository
                        TeamDeleted = false,
                        TeamName = "Nebraska",
                        TeamNickName = "Cornhuskers",
-                       ConferenceId = 1
+                       ConferenceId = 1,
+                       TeamLogo = 158
                    },
                    new Team()
                    {
@@ -27,7 +28,8 @@ namespace CFBPickEm.Core.Repository
                        TeamDeleted = false,
                        TeamName = "Iowa",
                        TeamNickName = "Hawkeyes",
-                       ConferenceId = 1
+                       ConferenceId = 1,
+                       TeamLogo = 2294
                    },
                    new Team()
                    {
@@ -35,7 +37,8 @@ namespace CFBPickEm.Core.Repository
                        TeamDeleted = false,
                        TeamName = "Minnesota",
                        TeamNickName = "Gophers",
-                       ConferenceId = 1
+                       ConferenceId = 1,
+                       TeamLogo = 135
                    }
                }
             },
@@ -48,7 +51,8 @@ namespace CFBPickEm.Core.Repository
                        TeamDeleted = false,
                        TeamName = "Ohio State",
                        TeamNickName = "Buckeyes",
-                       ConferenceId = 2
+                       ConferenceId = 2,
+                       TeamLogo = 194
                    },
                    new Team()
                    {
@@ -56,7 +60,8 @@ namespace CFBPickEm.Core.Repository
                        TeamDeleted = false,
                        TeamName = "Penn State",
                        TeamNickName = "Nintny Lions",
-                       ConferenceId = 2
+                       ConferenceId = 2,
+                       TeamLogo = 213
                    },
                    new Team()
                    {
@@ -64,7 +69,8 @@ namespace CFBPickEm.Core.Repository
                        TeamDeleted = false,
                        TeamName = "Michigan",
                        TeamNickName = "Wolverines",
-                       ConferenceId = 2
+                       ConferenceId = 2,
+                       TeamLogo = 130
                    }
                }
             }

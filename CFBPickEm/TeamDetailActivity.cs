@@ -46,9 +46,6 @@ namespace CFBPickEm
             teamName.Text = selectedTeam.TeamName;
             teamNickName.Text = selectedTeam.TeamNickName;
 
-            var imageBitmap = ImageHelper.GetImageBitmapFromUrl("http://a.espncdn.com/combiner/i?img=/i/teamlogos/ncaa/500/158.png&w=100&h=100&transparent=true");
-            teamDetailImageView.SetImageBitmap(imageBitmap);
-
             var adapter = new ArrayAdapter(this, Android.Resource.Layout.SimpleSpinnerItem,
                 conferences.Select(c => c.ConferenceName).ToList());
             //var adapter = new ArrayAdapter(this, Android.Resource.Layout.SimpleSpinnerItem, conferences);
@@ -60,16 +57,44 @@ namespace CFBPickEm
         private void SetEvents()
         {
             conferenceSpinner.ItemSelected += new EventHandler<AdapterView.ItemSelectedEventArgs>(ConferenceSpinner_ItemSelected);
+            teamSpinner.ItemSelected += TeamSpinner_ItemSelected;
+        }
+
+        private void TeamSpinner_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
+        {
+            Spinner spinner = (Spinner)sender;
+            string teamSelectedItem = spinner.SelectedItem.ToString();
+
+            if (teamSelectedItem != null)
+            {
+                IEnumerable<Team> selectedTeam =
+                    from team in teams
+                    where team.TeamName == teamSelectedItem
+                    select team;
+
+                CFBDataService cfbDataService = new CFBDataService();
+                Team teamSelected = selectedTeam.FirstOrDefault();
+                teamSelected = cfbDataService.GetTeamById(teamSelected.TeamId);
+
+                var imageBitmap = ImageHelper.GetImageBitmapFromUrl(String.Format("http://a.espncdn.com/combiner/i?img=/i/teamlogos/ncaa/500/{0}.png&w=100&h=100&transparent=true", teamSelected.TeamLogo));
+                teamDetailImageView.SetImageBitmap(imageBitmap);
+
+                teamNickName.Text = teamSelected.TeamNickName;
+                teamName.Text = teamSelected.TeamName;
+                //var adapter = new ArrayAdapter(this,
+                //    Android.Resource.Layout.SimpleSpinnerItem,
+                //    teams.Select(t => t.TeamName).ToList());
+                //teamSpinner.Adapter = adapter;
+            }
+
+
         }
 
         private void ConferenceSpinner_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
         {
             Spinner spinner = (Spinner)sender;
-
             string conf = spinner.SelectedItem.ToString(); //.Cast<Conference>();
-
-            CFBDataService cfbDataService = new CFBDataService();
-
+            
             if (conf != null)
             {
                 IEnumerable<Conference> selectedConf =
@@ -77,9 +102,12 @@ namespace CFBPickEm
                     where conference.ConferenceName == conf
                     select conference;
 
-                teams = cfbDataService.GetTeamsForConference(selectedConf.FirstOrDefault().ConferenceId);
+                CFBDataService cfbDataService = new CFBDataService();
+                Conference confSelected = selectedConf.FirstOrDefault();
+                teams = cfbDataService.GetTeamsForConference(confSelected.ConferenceId);
 
-                var adapter = new ArrayAdapter(this, Android.Resource.Layout.SimpleSpinnerItem, 
+                var adapter = new ArrayAdapter(this, 
+                    Android.Resource.Layout.SimpleSpinnerItem, 
                     teams.Select(t => t.TeamName).ToList());
                 teamSpinner.Adapter = adapter;
             }            
