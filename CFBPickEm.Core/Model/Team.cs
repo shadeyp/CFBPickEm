@@ -9,6 +9,7 @@ namespace CFBPickEm.Core.Model
     public class Team
     {
         public int TeamId { get; set; }
+        public int ConferenceId { get; set; }
         public string TeamName { get; set; }
         public bool TeamDeleted { get; set; }
         public string TeamNickName { get; set; }

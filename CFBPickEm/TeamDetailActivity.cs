@@ -49,10 +49,11 @@ namespace CFBPickEm
             var imageBitmap = ImageHelper.GetImageBitmapFromUrl("http://a.espncdn.com/combiner/i?img=/i/teamlogos/ncaa/500/158.png&w=100&h=100&transparent=true");
             teamDetailImageView.SetImageBitmap(imageBitmap);
 
-            //var adapter = new ArrayAdapter(this, Android.Resource.Layout.SimpleSpinnerItem, 
-            //    conferences.Select(c => c.ConferenceName).ToList());
             var adapter = new ArrayAdapter(this, Android.Resource.Layout.SimpleSpinnerItem,
-                conferences);
+                conferences.Select(c => c.ConferenceName).ToList());
+            //var adapter = new ArrayAdapter(this, Android.Resource.Layout.SimpleSpinnerItem, conferences);
+            adapter.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
+            
             conferenceSpinner.Adapter = adapter;
         }
 
@@ -64,15 +65,24 @@ namespace CFBPickEm
         private void ConferenceSpinner_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
         {
             Spinner spinner = (Spinner)sender;
-            
-            Conference conf = spinner.SelectedItem.Cast<Conference>();
+
+            string conf = spinner.SelectedItem.ToString(); //.Cast<Conference>();
 
             CFBDataService cfbDataService = new CFBDataService();
-            teams = cfbDataService.GetTeamsForConference(conf.ConferenceId);
 
-            var adapter = new ArrayAdapter(this, Android.Resource.Layout.SimpleSpinnerItem,teams);
-            teamSpinner.Adapter = adapter;
-            
+            if (conf != null)
+            {
+                IEnumerable<Conference> selectedConf =
+                    from conference in conferences
+                    where conference.ConferenceName == conf
+                    select conference;
+
+                teams = cfbDataService.GetTeamsForConference(selectedConf.FirstOrDefault().ConferenceId);
+
+                var adapter = new ArrayAdapter(this, Android.Resource.Layout.SimpleSpinnerItem, 
+                    teams.Select(t => t.TeamName).ToList());
+                teamSpinner.Adapter = adapter;
+            }            
         }
 
         private void FindViews()

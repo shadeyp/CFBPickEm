@@ -18,21 +18,24 @@ namespace CFBPickEm.Core.Repository
                        TeamId = 1,
                        TeamDeleted = false,
                        TeamName = "Nebraska",
-                       TeamNickName = "Cornhuskers"
+                       TeamNickName = "Cornhuskers",
+                       ConferenceId = 1
                    },
                    new Team()
                    {
                        TeamId = 2,
                        TeamDeleted = false,
                        TeamName = "Iowa",
-                       TeamNickName = "Hawkeyes"
+                       TeamNickName = "Hawkeyes",
+                       ConferenceId = 1
                    },
                    new Team()
                    {
                        TeamId = 3,
                        TeamDeleted = false,
                        TeamName = "Minnesota",
-                       TeamNickName = "Gophers"
+                       TeamNickName = "Gophers",
+                       ConferenceId = 1
                    }
                }
             },
@@ -44,21 +47,24 @@ namespace CFBPickEm.Core.Repository
                        TeamId = 4,
                        TeamDeleted = false,
                        TeamName = "Ohio State",
-                       TeamNickName = "Buckeyes"
+                       TeamNickName = "Buckeyes",
+                       ConferenceId = 2
                    },
                    new Team()
                    {
                        TeamId = 5,
                        TeamDeleted = false,
                        TeamName = "Penn State",
-                       TeamNickName = "Nintny Lions"
+                       TeamNickName = "Nintny Lions",
+                       ConferenceId = 2
                    },
                    new Team()
                    {
                        TeamId = 6,
                        TeamDeleted = false,
                        TeamName = "Michigan",
-                       TeamNickName = "Wolverines"
+                       TeamNickName = "Wolverines",
+                       ConferenceId = 2
                    }
                }
             }
