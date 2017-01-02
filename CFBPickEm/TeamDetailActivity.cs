@@ -64,14 +64,15 @@ namespace CFBPickEm
         private void ConferenceSpinner_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
         {
             Spinner spinner = (Spinner)sender;
+            
+            Conference conf = spinner.SelectedItem.Cast<Conference>();
 
-            var confId = spinner.GetItemAtPosition(e.Position).Cast<Conference>();
             CFBDataService cfbDataService = new CFBDataService();
-            teams = cfbDataService.GetTeamsForConference(confId.ConferenceId);
+            teams = cfbDataService.GetTeamsForConference(conf.ConferenceId);
 
-            var adapter = new ArrayAdapter(this, Android.Resource.Layout.SimpleSpinnerItem,
-                teams);
+            var adapter = new ArrayAdapter(this, Android.Resource.Layout.SimpleSpinnerItem,teams);
             teamSpinner.Adapter = adapter;
+            
         }
 
         private void FindViews()
